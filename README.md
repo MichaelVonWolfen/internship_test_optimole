@@ -1,6 +1,6 @@
 # Optimole Internship Test
 
-<b> Requirements: </b> 
+<b> Requirements: </b>
 
 <ul><li> 
 	 You will build a Node.js script that will optimize all images from the folder
@@ -46,10 +46,10 @@
 		 </ul>
 		Returned  object example: <br>
 	</li>      
-</ul>  
+</ul>
 
 ```javascript
-{ 
+{
   pass: "secret",
   optimized : [
 	{filePath :"optimized/image1.jpg", procent : 70},
@@ -58,8 +58,8 @@
 }
 ```
 
-
 <b> Observations: </b>
+
 <ul>
 <li> 
 You will clone this repository, add on it your code, then send us a link to the repository where you 
