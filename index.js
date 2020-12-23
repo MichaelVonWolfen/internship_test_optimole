@@ -5,9 +5,14 @@
 // const Jimp = require("jimp");
 const fs = require("fs");
 const sharp = require("sharp");
-
 var images_folder = __dirname + "/images";
 //for each image in the images folder
+const save_folder = "./optimized";
+
+if (!fs.existsSync(save_folder)) {
+  fs.mkdir(save_folder, (err) => console.log(err));
+}
+
 fs.readdir(images_folder, (err, images) => {
   if (err) {
     console.log(err);
@@ -16,10 +21,10 @@ fs.readdir(images_folder, (err, images) => {
   //read the image and convert it to webp
   //find the maximum between the witdh and height and upscale or downscale that value
   //while keeping the ratio safe
-  //Can safelly read png and jpeg at the moment
+  //Can safelly read svg, gif png and jpeg at the moment and convert them to webp
   image_names = images.map(async (image_name) => {
     let image_data;
-    let sharp_img = await sharp(images_folder + "/" + image_name).png();
+    let sharp_img = await sharp(images_folder + "/" + image_name).webp();
     await sharp_img
       .metadata()
       .then((meta) => {
@@ -37,6 +42,6 @@ fs.readdir(images_folder, (err, images) => {
       ? sharp_img.resize({ width: 500 })
       : sharp_img.resize({ heigth: 500 });
 
-    sharp_img.toFile("./optimized/" + image_data.name + ".png");
+    sharp_img.toFile(save_folder + "/" + image_data.name + ".webp");
   });
 });
