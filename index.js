@@ -4,7 +4,6 @@
 // };
 // const Jimp = require("jimp");
 const fs = require("fs");
-const { networkInterfaces } = require("os");
 const sharp = require("sharp");
 
 var images_folder = __dirname + "/images";
@@ -14,7 +13,6 @@ fs.readdir(images_folder, (err, images) => {
     console.log(err);
     return 0;
   }
-  //for each image in images
   //read the image and convert it to webp
   //find the maximum between the witdh and height and upscale or downscale that value
   //while keeping the ratio safe
@@ -42,23 +40,3 @@ fs.readdir(images_folder, (err, images) => {
     sharp_img.toFile("./optimized/" + image_data.name + ".png");
   });
 });
-// let w = meta.width;
-// let h = meta.height;
-// Jimp.read(img_path).then((img) => {
-//   /*
-//   / Find the maximum size between the width and height
-//   */
-//   let h = img.bitmap.height;
-//   let w = img.bitmap.width;
-//   let min = Math.maxnp(h, w);
-//   console.log(`${image} \t ${h} \t ${w}`);
-//   /*
-//   upscale or downdcale the width or height at 500 px
-//  */
-//   if (min === h) {
-//     img.resize(Jimp.AUTO, 500);
-//   } else {
-//     img.resize(500, Jimp.AUTO);
-//   }
-//   img.quality(40).write("./optimized/" + image);
-// });
