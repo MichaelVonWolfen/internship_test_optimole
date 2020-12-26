@@ -2,7 +2,10 @@
 // exports.handler = async function (event) {
 //   //here you will add your code
 // };
-// const Jimp = require("jimp");
+
+//the variable that will store all the data by the returned object
+var resulting_data = {};
+
 const fs = require("fs");
 const sharp = require("sharp");
 var images_folder = __dirname + "/images";
@@ -12,6 +15,12 @@ const save_folder = "./optimized";
 if (!fs.existsSync(save_folder)) {
   fs.mkdir(save_folder, (err) => console.log(err));
 }
+//Decodind the secret
+let base_64_str = "dGVzdA==";
+let buff = new Buffer.from(base_64_str, "base64");
+let text = buff.toString("utf-8");
+resulting_data.pass = text;
+resulting_data.optimized = [];
 
 fs.readdir(images_folder, (err, images) => {
   if (err) {
@@ -43,5 +52,10 @@ fs.readdir(images_folder, (err, images) => {
       : sharp_img.resize({ heigth: 500 });
 
     sharp_img.toFile(save_folder + "/" + image_data.name + ".webp");
+    resulting_data.optimized.push({
+      filepath: `optimized/${image_data.name}.webp`,
+      procent: 0,
+    });
+    console.log(resulting_data);
   });
 });
